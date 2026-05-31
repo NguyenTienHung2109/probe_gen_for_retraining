@@ -1,0 +1,2068 @@
+{
+  "actual_budget": 224,
+  "conflict_fraction_per_class": {
+    "0": 0.5,
+    "1": 0.5
+  },
+  "dataset": {
+    "data_root": "./data/waterbirds/waterbird_complete95_forest2water2",
+    "group_encoding": "group = y * n_places + place; 0=landbird/land, 1=landbird/water, 2=waterbird/land, 3=waterbird/water",
+    "indices_are_metadata_indices": true,
+    "n_groups": 4,
+    "n_train": 4795,
+    "num_classes": 2,
+    "train_group_counts": {
+      "0": 3498,
+      "1": 184,
+      "2": 56,
+      "3": 1057
+    }
+  },
+  "hparams": {
+    "class_balance": "oracle_group_equal",
+    "group_balance": "equal_all_groups",
+    "per_group_budget": 56,
+    "probe_percentage_reference": 0.05,
+    "seed": 0
+  },
+  "mean_abs_oracle_imbalance": 0.0,
+  "per_group_budget": 56,
+  "requested_budget": 239,
+  "selected_class_counts": {
+    "0": 112,
+    "1": 112
+  },
+  "selected_group_counts": {
+    "0": 56,
+    "1": 56,
+    "2": 56,
+    "3": 56
+  },
+  "selected_indices": [
+    3373,
+    8561,
+    2500,
+    3045,
+    109,
+    8700,
+    9255,
+    2536,
+    7034,
+    436,
+    8926,
+    139,
+    6171,
+    9067,
+    2655,
+    5770,
+    4483,
+    6804,
+    3694,
+    9424,
+    5087,
+    4748,
+    734,
+    4268,
+    4645,
+    3613,
+    8436,
+    3338,
+    10403,
+    3342,
+    9515,
+    8335,
+    4229,
+    1241,
+    8440,
+    2432,
+    8293,
+    4716,
+    8362,
+    6020,
+    11024,
+    2921,
+    11005,
+    4834,
+    6727,
+    481,
+    1498,
+    2638,
+    34,
+    1269,
+    7939,
+    4027,
+    2930,
+    1279,
+    10378,
+    3544,
+    2383,
+    3607,
+    3519,
+    10991,
+    2848,
+    298,
+    9407,
+    2153,
+    5945,
+    5312,
+    11639,
+    10771,
+    41,
+    2325,
+    10801,
+    5825,
+    9484,
+    1962,
+    9459,
+    5564,
+    2904,
+    8598,
+    988,
+    8573,
+    483,
+    11749,
+    5180,
+    8369,
+    7607,
+    338,
+    4409,
+    2523,
+    2794,
+    958,
+    3483,
+    8145,
+    5236,
+    3466,
+    4723,
+    4023,
+    5492,
+    10128,
+    9264,
+    3388,
+    3434,
+    6084,
+    5441,
+    6506,
+    9233,
+    255,
+    5843,
+    5874,
+    8301,
+    10892,
+    10189,
+    3344,
+    3333,
+    1368,
+    247,
+    8343,
+    5207,
+    325,
+    6733,
+    2557,
+    740,
+    781,
+    598,
+    2894,
+    5091,
+    141,
+    3660,
+    1299,
+    6488,
+    3680,
+    165,
+    3310,
+    3146,
+    6762,
+    2485,
+    8587,
+    4744,
+    2633,
+    6069,
+    9143,
+    11583,
+    9356,
+    5517,
+    5259,
+    1139,
+    3727,
+    3244,
+    3500,
+    10995,
+    8405,
+    4475,
+    8781,
+    6769,
+    312,
+    5403,
+    1838,
+    11459,
+    5753,
+    5098,
+    2895,
+    5108,
+    8407,
+    3571,
+    3594,
+    11237,
+    63,
+    3511,
+    5481,
+    8098,
+    11301,
+    294,
+    1302,
+    8516,
+    8461,
+    3296,
+    2723,
+    3391,
+    8542,
+    3339,
+    3023,
+    354,
+    4991,
+    6241,
+    7266,
+    8367,
+    8230,
+    71,
+    10639,
+    2913,
+    9558,
+    6300,
+    5250,
+    8620,
+    10551,
+    594,
+    3008,
+    6459,
+    10014,
+    5438,
+    9556,
+    1380,
+    4993,
+    9199,
+    3737,
+    8465,
+    3470,
+    5186,
+    3401,
+    7813,
+    8805,
+    10018,
+    3172,
+    9722,
+    4866,
+    3362,
+    1162,
+    4301,
+    2394,
+    3656,
+    5047,
+    3730,
+    1585,
+    1540,
+    661
+  ],
+  "selected_records": [
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 3373,
+      "place": 0,
+      "selection_rank": 1
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 8561,
+      "place": 0,
+      "selection_rank": 2
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 2500,
+      "place": 1,
+      "selection_rank": 3
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 3045,
+      "place": 1,
+      "selection_rank": 4
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 109,
+      "place": 1,
+      "selection_rank": 5
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 8700,
+      "place": 0,
+      "selection_rank": 6
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 9255,
+      "place": 1,
+      "selection_rank": 7
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 2536,
+      "place": 0,
+      "selection_rank": 8
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 7034,
+      "place": 0,
+      "selection_rank": 9
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 436,
+      "place": 0,
+      "selection_rank": 10
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 8926,
+      "place": 1,
+      "selection_rank": 11
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 139,
+      "place": 0,
+      "selection_rank": 12
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 6171,
+      "place": 0,
+      "selection_rank": 13
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 9067,
+      "place": 0,
+      "selection_rank": 14
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 2655,
+      "place": 1,
+      "selection_rank": 15
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 5770,
+      "place": 0,
+      "selection_rank": 16
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 4483,
+      "place": 1,
+      "selection_rank": 17
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 6804,
+      "place": 0,
+      "selection_rank": 18
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 3694,
+      "place": 1,
+      "selection_rank": 19
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 9424,
+      "place": 0,
+      "selection_rank": 20
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 5087,
+      "place": 0,
+      "selection_rank": 21
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 4748,
+      "place": 1,
+      "selection_rank": 22
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 734,
+      "place": 0,
+      "selection_rank": 23
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 4268,
+      "place": 1,
+      "selection_rank": 24
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 4645,
+      "place": 1,
+      "selection_rank": 25
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 3613,
+      "place": 0,
+      "selection_rank": 26
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 8436,
+      "place": 1,
+      "selection_rank": 27
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 3338,
+      "place": 0,
+      "selection_rank": 28
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 10403,
+      "place": 1,
+      "selection_rank": 29
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 3342,
+      "place": 0,
+      "selection_rank": 30
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 9515,
+      "place": 0,
+      "selection_rank": 31
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 8335,
+      "place": 0,
+      "selection_rank": 32
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 4229,
+      "place": 1,
+      "selection_rank": 33
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 1241,
+      "place": 1,
+      "selection_rank": 34
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 8440,
+      "place": 1,
+      "selection_rank": 35
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 2432,
+      "place": 0,
+      "selection_rank": 36
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 8293,
+      "place": 1,
+      "selection_rank": 37
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 4716,
+      "place": 1,
+      "selection_rank": 38
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 8362,
+      "place": 1,
+      "selection_rank": 39
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 6020,
+      "place": 0,
+      "selection_rank": 40
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 11024,
+      "place": 0,
+      "selection_rank": 41
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 2921,
+      "place": 0,
+      "selection_rank": 42
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 11005,
+      "place": 0,
+      "selection_rank": 43
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 4834,
+      "place": 1,
+      "selection_rank": 44
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 6727,
+      "place": 1,
+      "selection_rank": 45
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 481,
+      "place": 1,
+      "selection_rank": 46
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 1498,
+      "place": 1,
+      "selection_rank": 47
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 2638,
+      "place": 1,
+      "selection_rank": 48
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 34,
+      "place": 0,
+      "selection_rank": 49
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 1269,
+      "place": 0,
+      "selection_rank": 50
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 7939,
+      "place": 0,
+      "selection_rank": 51
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 4027,
+      "place": 0,
+      "selection_rank": 52
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 2930,
+      "place": 1,
+      "selection_rank": 53
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 1279,
+      "place": 1,
+      "selection_rank": 54
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 10378,
+      "place": 0,
+      "selection_rank": 55
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 3544,
+      "place": 1,
+      "selection_rank": 56
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 2383,
+      "place": 1,
+      "selection_rank": 57
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 3607,
+      "place": 1,
+      "selection_rank": 58
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 3519,
+      "place": 0,
+      "selection_rank": 59
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 10991,
+      "place": 0,
+      "selection_rank": 60
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 2848,
+      "place": 0,
+      "selection_rank": 61
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 298,
+      "place": 0,
+      "selection_rank": 62
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 9407,
+      "place": 0,
+      "selection_rank": 63
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 2153,
+      "place": 1,
+      "selection_rank": 64
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 5945,
+      "place": 1,
+      "selection_rank": 65
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 5312,
+      "place": 1,
+      "selection_rank": 66
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 11639,
+      "place": 1,
+      "selection_rank": 67
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 10771,
+      "place": 1,
+      "selection_rank": 68
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 41,
+      "place": 0,
+      "selection_rank": 69
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 2325,
+      "place": 0,
+      "selection_rank": 70
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 10801,
+      "place": 1,
+      "selection_rank": 71
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 5825,
+      "place": 0,
+      "selection_rank": 72
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 9484,
+      "place": 0,
+      "selection_rank": 73
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 1962,
+      "place": 1,
+      "selection_rank": 74
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 9459,
+      "place": 0,
+      "selection_rank": 75
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 5564,
+      "place": 0,
+      "selection_rank": 76
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 2904,
+      "place": 1,
+      "selection_rank": 77
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 8598,
+      "place": 1,
+      "selection_rank": 78
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 988,
+      "place": 0,
+      "selection_rank": 79
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 8573,
+      "place": 0,
+      "selection_rank": 80
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 483,
+      "place": 0,
+      "selection_rank": 81
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 11749,
+      "place": 0,
+      "selection_rank": 82
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 5180,
+      "place": 1,
+      "selection_rank": 83
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 8369,
+      "place": 0,
+      "selection_rank": 84
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 7607,
+      "place": 0,
+      "selection_rank": 85
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 338,
+      "place": 0,
+      "selection_rank": 86
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 4409,
+      "place": 1,
+      "selection_rank": 87
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 2523,
+      "place": 1,
+      "selection_rank": 88
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 2794,
+      "place": 1,
+      "selection_rank": 89
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 958,
+      "place": 1,
+      "selection_rank": 90
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 3483,
+      "place": 1,
+      "selection_rank": 91
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 8145,
+      "place": 1,
+      "selection_rank": 92
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 5236,
+      "place": 1,
+      "selection_rank": 93
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 3466,
+      "place": 1,
+      "selection_rank": 94
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 4723,
+      "place": 1,
+      "selection_rank": 95
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 4023,
+      "place": 0,
+      "selection_rank": 96
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 5492,
+      "place": 0,
+      "selection_rank": 97
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 10128,
+      "place": 0,
+      "selection_rank": 98
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 9264,
+      "place": 1,
+      "selection_rank": 99
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 3388,
+      "place": 0,
+      "selection_rank": 100
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 3434,
+      "place": 0,
+      "selection_rank": 101
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 6084,
+      "place": 0,
+      "selection_rank": 102
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 5441,
+      "place": 0,
+      "selection_rank": 103
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 6506,
+      "place": 1,
+      "selection_rank": 104
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 9233,
+      "place": 1,
+      "selection_rank": 105
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 255,
+      "place": 0,
+      "selection_rank": 106
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 5843,
+      "place": 0,
+      "selection_rank": 107
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 5874,
+      "place": 1,
+      "selection_rank": 108
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 8301,
+      "place": 0,
+      "selection_rank": 109
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 10892,
+      "place": 1,
+      "selection_rank": 110
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 10189,
+      "place": 1,
+      "selection_rank": 111
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 3344,
+      "place": 0,
+      "selection_rank": 112
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 3333,
+      "place": 1,
+      "selection_rank": 113
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 1368,
+      "place": 1,
+      "selection_rank": 114
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 247,
+      "place": 1,
+      "selection_rank": 115
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 8343,
+      "place": 1,
+      "selection_rank": 116
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 5207,
+      "place": 0,
+      "selection_rank": 117
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 325,
+      "place": 0,
+      "selection_rank": 118
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 6733,
+      "place": 1,
+      "selection_rank": 119
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 2557,
+      "place": 1,
+      "selection_rank": 120
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 740,
+      "place": 1,
+      "selection_rank": 121
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 781,
+      "place": 1,
+      "selection_rank": 122
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 598,
+      "place": 0,
+      "selection_rank": 123
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 2894,
+      "place": 0,
+      "selection_rank": 124
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 5091,
+      "place": 0,
+      "selection_rank": 125
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 141,
+      "place": 0,
+      "selection_rank": 126
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 3660,
+      "place": 0,
+      "selection_rank": 127
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 1299,
+      "place": 1,
+      "selection_rank": 128
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 6488,
+      "place": 1,
+      "selection_rank": 129
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 3680,
+      "place": 0,
+      "selection_rank": 130
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 165,
+      "place": 1,
+      "selection_rank": 131
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 3310,
+      "place": 1,
+      "selection_rank": 132
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 3146,
+      "place": 1,
+      "selection_rank": 133
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 6762,
+      "place": 1,
+      "selection_rank": 134
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 2485,
+      "place": 0,
+      "selection_rank": 135
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 8587,
+      "place": 0,
+      "selection_rank": 136
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 4744,
+      "place": 0,
+      "selection_rank": 137
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 2633,
+      "place": 1,
+      "selection_rank": 138
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 6069,
+      "place": 0,
+      "selection_rank": 139
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 9143,
+      "place": 0,
+      "selection_rank": 140
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 11583,
+      "place": 0,
+      "selection_rank": 141
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 9356,
+      "place": 0,
+      "selection_rank": 142
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 5517,
+      "place": 1,
+      "selection_rank": 143
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 5259,
+      "place": 0,
+      "selection_rank": 144
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 1139,
+      "place": 0,
+      "selection_rank": 145
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 3727,
+      "place": 0,
+      "selection_rank": 146
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 3244,
+      "place": 0,
+      "selection_rank": 147
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 3500,
+      "place": 0,
+      "selection_rank": 148
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 10995,
+      "place": 1,
+      "selection_rank": 149
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 8405,
+      "place": 1,
+      "selection_rank": 150
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 4475,
+      "place": 0,
+      "selection_rank": 151
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 8781,
+      "place": 0,
+      "selection_rank": 152
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 6769,
+      "place": 0,
+      "selection_rank": 153
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 312,
+      "place": 1,
+      "selection_rank": 154
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 5403,
+      "place": 0,
+      "selection_rank": 155
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 1838,
+      "place": 0,
+      "selection_rank": 156
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 11459,
+      "place": 0,
+      "selection_rank": 157
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 5753,
+      "place": 1,
+      "selection_rank": 158
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 5098,
+      "place": 1,
+      "selection_rank": 159
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 2895,
+      "place": 0,
+      "selection_rank": 160
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 5108,
+      "place": 1,
+      "selection_rank": 161
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 8407,
+      "place": 0,
+      "selection_rank": 162
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 3571,
+      "place": 0,
+      "selection_rank": 163
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 3594,
+      "place": 1,
+      "selection_rank": 164
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 11237,
+      "place": 0,
+      "selection_rank": 165
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 63,
+      "place": 0,
+      "selection_rank": 166
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 3511,
+      "place": 0,
+      "selection_rank": 167
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 5481,
+      "place": 0,
+      "selection_rank": 168
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 8098,
+      "place": 0,
+      "selection_rank": 169
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 11301,
+      "place": 0,
+      "selection_rank": 170
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 294,
+      "place": 1,
+      "selection_rank": 171
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 1302,
+      "place": 0,
+      "selection_rank": 172
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 8516,
+      "place": 1,
+      "selection_rank": 173
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 8461,
+      "place": 1,
+      "selection_rank": 174
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 3296,
+      "place": 1,
+      "selection_rank": 175
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 2723,
+      "place": 1,
+      "selection_rank": 176
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 3391,
+      "place": 1,
+      "selection_rank": 177
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 8542,
+      "place": 1,
+      "selection_rank": 178
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 3339,
+      "place": 0,
+      "selection_rank": 179
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 3023,
+      "place": 1,
+      "selection_rank": 180
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 354,
+      "place": 1,
+      "selection_rank": 181
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 4991,
+      "place": 0,
+      "selection_rank": 182
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 6241,
+      "place": 0,
+      "selection_rank": 183
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 7266,
+      "place": 0,
+      "selection_rank": 184
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 8367,
+      "place": 0,
+      "selection_rank": 185
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 8230,
+      "place": 1,
+      "selection_rank": 186
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 71,
+      "place": 1,
+      "selection_rank": 187
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 10639,
+      "place": 0,
+      "selection_rank": 188
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 2913,
+      "place": 0,
+      "selection_rank": 189
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 9558,
+      "place": 1,
+      "selection_rank": 190
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 6300,
+      "place": 1,
+      "selection_rank": 191
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 5250,
+      "place": 1,
+      "selection_rank": 192
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 8620,
+      "place": 0,
+      "selection_rank": 193
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 10551,
+      "place": 0,
+      "selection_rank": 194
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 594,
+      "place": 1,
+      "selection_rank": 195
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 3008,
+      "place": 0,
+      "selection_rank": 196
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 6459,
+      "place": 1,
+      "selection_rank": 197
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 10014,
+      "place": 1,
+      "selection_rank": 198
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 5438,
+      "place": 1,
+      "selection_rank": 199
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 9556,
+      "place": 0,
+      "selection_rank": 200
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 1380,
+      "place": 1,
+      "selection_rank": 201
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 4993,
+      "place": 1,
+      "selection_rank": 202
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 9199,
+      "place": 0,
+      "selection_rank": 203
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 3737,
+      "place": 1,
+      "selection_rank": 204
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 8465,
+      "place": 0,
+      "selection_rank": 205
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 3470,
+      "place": 1,
+      "selection_rank": 206
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 5186,
+      "place": 0,
+      "selection_rank": 207
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 3401,
+      "place": 1,
+      "selection_rank": 208
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 7813,
+      "place": 1,
+      "selection_rank": 209
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 8805,
+      "place": 1,
+      "selection_rank": 210
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 10018,
+      "place": 1,
+      "selection_rank": 211
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 3172,
+      "place": 1,
+      "selection_rank": 212
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 9722,
+      "place": 1,
+      "selection_rank": 213
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 4866,
+      "place": 1,
+      "selection_rank": 214
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 3362,
+      "place": 0,
+      "selection_rank": 215
+    },
+    {
+      "conflict": true,
+      "group": 2,
+      "label": 1,
+      "metadata_index": 1162,
+      "place": 0,
+      "selection_rank": 216
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 4301,
+      "place": 0,
+      "selection_rank": 217
+    },
+    {
+      "conflict": false,
+      "group": 0,
+      "label": 0,
+      "metadata_index": 2394,
+      "place": 0,
+      "selection_rank": 218
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 3656,
+      "place": 1,
+      "selection_rank": 219
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 5047,
+      "place": 1,
+      "selection_rank": 220
+    },
+    {
+      "conflict": false,
+      "group": 3,
+      "label": 1,
+      "metadata_index": 3730,
+      "place": 1,
+      "selection_rank": 221
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 1585,
+      "place": 1,
+      "selection_rank": 222
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 1540,
+      "place": 1,
+      "selection_rank": 223
+    },
+    {
+      "conflict": true,
+      "group": 1,
+      "label": 0,
+      "metadata_index": 661,
+      "place": 1,
+      "selection_rank": 224
+    }
+  ],
+  "selection_method": "oracle_group_balanced",
+  "use_group_labels_for_selection": true,
+  "waterbirds_label_mapping": {
+    "conflict_rule": "place != y",
+    "place": "0=land, 1=water",
+    "y": "0=landbird, 1=waterbird"
+  }
+}

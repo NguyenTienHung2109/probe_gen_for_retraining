@@ -10,3 +10,6 @@ examples/CIFAR/dep_repos
 examples/CIFAR/dep_repos/
 examples/models
 .idea
+data/
+checkpoints/
+outputs/
