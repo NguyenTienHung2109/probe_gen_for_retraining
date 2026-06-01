@@ -162,6 +162,43 @@ def append_jsonl(path, record):
         f.write(json.dumps(record, sort_keys=True) + "\n")
 
 
+def wandb_payload(prefix, record):
+    payload = {}
+    for key, value in record.items():
+        if isinstance(value, bool):
+            payload[f"{prefix}/{key}"] = int(value)
+        elif isinstance(value, (int, float)):
+            payload[f"{prefix}/{key}"] = value
+        elif isinstance(value, list):
+            for idx, item in enumerate(value):
+                if isinstance(item, (int, float)):
+                    payload[f"{prefix}/{key}_{idx}"] = item
+    return payload
+
+
+def init_wandb(args, config):
+    if args.disable_wandb:
+        return None
+    try:
+        import wandb
+    except ImportError:
+        print("wandb package not installed; continuing with local JSONL logs only.")
+        return None
+
+    try:
+        wandb.init(
+            entity=args.wandb_entity,
+            project=args.wandb_project,
+            name=args.wandb_name,
+            mode=args.wandb_mode,
+            config=config,
+        )
+        return wandb
+    except Exception as exc:
+        print(f"wandb init failed ({exc}); continuing with local JSONL logs only.")
+        return None
+
+
 def stage1_objective_name(args):
     if args.ce_only:
         return "ce_only"
@@ -225,6 +262,15 @@ def parse_args():
     ap.add_argument("--lambda-bal", type=float, default=0.02)
     ap.add_argument("--lambda-expert-ce", type=float, default=0.3)
     ap.add_argument("--lambda-res-div", type=float, default=0.005)
+    ap.add_argument("--wandb-project", default="probe_retraining")
+    ap.add_argument("--wandb-entity", default="hunghn2003")
+    ap.add_argument("--wandb-name", default=None)
+    ap.add_argument("--wandb-mode", default="online", choices=["online", "offline", "disabled"])
+    ap.add_argument(
+        "--disable-wandb",
+        action="store_true",
+        help="disable Weights & Biases logging and keep only local JSONL logs",
+    )
     ap.add_argument(
         "--ce-only",
         action="store_true",
@@ -244,8 +290,24 @@ def main():
         if os.path.exists(path):
             os.remove(path)
 
+    config = vars(args).copy()
+    config["stage1_objective"] = stage1_objective_name(args)
     with open(config_path, "w", encoding="utf-8") as f:
-        json.dump(vars(args), f, indent=2, sort_keys=True)
+        json.dump(config, f, indent=2, sort_keys=True)
+    open(train_log_path, "a", encoding="utf-8").close()
+    open(eval_log_path, "a", encoding="utf-8").close()
+
+    wandb = init_wandb(args, config)
+    if wandb is not None:
+        wandb.save(config_path, policy="now")
+        wandb.save(train_log_path, policy="live")
+        wandb.save(eval_log_path, policy="live")
+        print(
+            f"wandb=enabled entity={args.wandb_entity} project={args.wandb_project} "
+            f"mode={args.wandb_mode}"
+        )
+    else:
+        print("wandb=disabled")
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
     start_time = time.time()
@@ -350,6 +412,8 @@ def main():
                 "lambda_bal": args.lambda_bal,
             }
             append_jsonl(train_log_path, record)
+            if wandb is not None:
+                wandb.log(wandb_payload("train", record), step=global_step)
 
             if step % args.log_every == 0:
                 print(
@@ -375,6 +439,8 @@ def main():
             "lr": opt.param_groups[0]["lr"],
         }
         append_jsonl(eval_log_path, eval_record)
+        if wandb is not None:
+            wandb.log(wandb_payload("eval", eval_record), step=global_step)
         pg_str = " ".join(f"{v:.3f}" for v in pg_v)
         print(
             f"  [epoch {epoch}] VAL avg={avg_v:.4f} worst={worst_v:.4f} "
@@ -391,6 +457,18 @@ def main():
     pg_str = " ".join(f"{v:.3f}" for v in pg_t)
     print(f"\nfinal TEST avg={avg_t:.4f} worst={worst_t:.4f} per-group=[{pg_str}]")
     print(f"best val worst-group acc = {best_val_worst:.4f}; checkpoint at {args.output_path}")
+    if wandb is not None:
+        final_record = {
+            "test_avg": avg_t,
+            "test_worst": worst_t,
+            "test_per_group": pg_t,
+            "best_val_worst": best_val_worst,
+        }
+        wandb.log(wandb_payload("final", final_record), step=global_step)
+        wandb.save(train_log_path, policy="end")
+        wandb.save(eval_log_path, policy="end")
+        wandb.save(config_path, policy="end")
+        wandb.finish()
 
 
 if __name__ == "__main__":
