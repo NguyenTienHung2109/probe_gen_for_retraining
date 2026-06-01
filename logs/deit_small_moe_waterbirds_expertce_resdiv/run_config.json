@@ -1,0 +1,20 @@
+{
+  "batch_size": 32,
+  "ce_only": false,
+  "data_root": "./data/waterbirds/waterbird_complete95_forest2water2",
+  "epochs": 100,
+  "lambda_bal": 0.06,
+  "lambda_div": 0.02,
+  "lambda_expert_ce": 0.3,
+  "lambda_res_div": 0.02,
+  "lambda_sp": 0.03,
+  "log_dir": "logs/deit_small_moe_waterbirds_expertce_resdiv",
+  "log_every": 20,
+  "lr": 1e-05,
+  "model": "deit_small_patch16_224",
+  "num_experts": 6,
+  "num_workers": 4,
+  "output_path": "checkpoints/deit_small_moe_waterbirds_expertce_resdiv.pth",
+  "seed": 0,
+  "weight_decay": 0.05
+}

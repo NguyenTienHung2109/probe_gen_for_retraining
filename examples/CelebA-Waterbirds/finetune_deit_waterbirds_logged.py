@@ -23,7 +23,15 @@ import torch.nn.functional as F
 from torch.utils.data import DataLoader, Subset
 from torchvision import transforms
 
-from intermediate_gen import MoEProbeModel, loss_balance, loss_div, loss_sparse
+from intermediate_gen import (
+    MoEProbeModel,
+    loss_balance,
+    loss_div,
+    loss_expert_ce,
+    loss_residual_logit_diversity,
+    loss_sparse,
+    residual_corr_offdiag_mean_abs,
+)
 from intermediate_gen.datasets import MyWaterBirdsDataset
 
 
@@ -87,25 +95,47 @@ class MoEDeiT(nn.Module):
 
 
 def compute_losses(model, logits, pi, h_stack, y, args):
-    loss_cls = F.cross_entropy(logits, y)
+    loss_routed_ce = F.cross_entropy(logits, y)
+    B, M, D = h_stack.shape
+    expert_logits = model.head.classifier(h_stack.reshape(B * M, D)).reshape(B, M, -1)
+    l_expert_ce = loss_expert_ce(expert_logits, y)
     l_div = loss_div(h_stack)
+    l_res_div = loss_residual_logit_diversity(expert_logits, y)
     l_sp = loss_sparse(pi)
     l_bal = loss_balance(pi)
-    objective = loss_cls
+    objective = loss_routed_ce
     if not args.ce_only:
         objective = (
             objective
+            + args.lambda_expert_ce * l_expert_ce
             + args.lambda_div * l_div
+            + args.lambda_res_div * l_res_div
             + args.lambda_sp * l_sp
             + args.lambda_bal * l_bal
         )
     acc = (logits.argmax(1) == y).float().mean()
+    expert_correct = (expert_logits.argmax(dim=-1) == y[:, None]).float()
+    expert_acc_per_m = expert_correct.mean(dim=0)
+    router_entropy = loss_sparse(pi)
+    router_load = pi.mean(dim=0)
     return objective, {
-        "loss_cls": loss_cls,
+        "loss_total": objective,
+        "loss_routed_ce": loss_routed_ce,
+        "loss_cls": loss_routed_ce,
+        "loss_expert_ce": l_expert_ce,
         "loss_div": l_div,
+        "loss_res_div": l_res_div,
         "loss_sp": l_sp,
         "loss_bal": l_bal,
         "accuracy": acc,
+        "expert_acc_mean": expert_acc_per_m.mean(),
+        "expert_acc_min": expert_acc_per_m.min(),
+        "expert_acc_max": expert_acc_per_m.max(),
+        "residual_corr_offdiag_mean_abs": residual_corr_offdiag_mean_abs(
+            expert_logits, y
+        ),
+        "router_entropy_mean": router_entropy,
+        "router_load_per_expert": router_load,
     }
 
 
@@ -132,6 +162,14 @@ def append_jsonl(path, record):
         f.write(json.dumps(record, sort_keys=True) + "\n")
 
 
+def stage1_objective_name(args):
+    if args.ce_only:
+        return "ce_only"
+    if args.lambda_expert_ce > 0.0 or args.lambda_res_div > 0.0:
+        return "routed_ce_plus_expert_ce_res_div_moe_aux"
+    return "ce_plus_moe_aux"
+
+
 def save_combined(model, args, epoch, val_avg, val_worst, n_classes, path):
     parent = os.path.dirname(path)
     if parent:
@@ -144,8 +182,10 @@ def save_combined(model, args, epoch, val_avg, val_worst, n_classes, path):
             "embed_dim": model.embed_dim,
             "num_experts": args.num_experts,
             "num_classes": n_classes,
-            "stage1_objective": "ce_only" if args.ce_only else "ce_plus_moe_aux",
+            "stage1_objective": stage1_objective_name(args),
+            "lambda_expert_ce": args.lambda_expert_ce,
             "lambda_div": args.lambda_div,
+            "lambda_res_div": args.lambda_res_div,
             "lambda_sp": args.lambda_sp,
             "lambda_bal": args.lambda_bal,
             "log_dir": args.log_dir,
@@ -183,6 +223,8 @@ def parse_args():
     ap.add_argument("--lambda-div", type=float, default=0.02)
     ap.add_argument("--lambda-sp", type=float, default=0.02)
     ap.add_argument("--lambda-bal", type=float, default=0.02)
+    ap.add_argument("--lambda-expert-ce", type=float, default=0.3)
+    ap.add_argument("--lambda-res-div", type=float, default=0.005)
     ap.add_argument(
         "--ce-only",
         action="store_true",
@@ -250,7 +292,10 @@ def main():
     print(
         f"backbone={args.model} embed_dim={model.embed_dim} num_experts={args.num_experts} "
         f"epochs={args.epochs} lr={args.lr} wd={args.weight_decay} batch={args.batch_size} "
-        f"objective={'ce_only' if args.ce_only else 'ce_plus_moe_aux'}"
+        f"objective={stage1_objective_name(args)} "
+        f"lambda_expert_ce={args.lambda_expert_ce} lambda_div={args.lambda_div} "
+        f"lambda_res_div={args.lambda_res_div} lambda_sp={args.lambda_sp} "
+        f"lambda_bal={args.lambda_bal}"
     )
     print(f"train_log={train_log_path}")
     print(f"eval_log={eval_log_path}")
@@ -277,14 +322,30 @@ def main():
                 "elapsed_sec": round(time.time() - start_time, 3),
                 "lr": opt.param_groups[0]["lr"],
                 "objective_loss": float(objective.item()),
+                "loss_total": float(losses["loss_total"].item()),
                 "loss_cls": float(losses["loss_cls"].item()),
+                "loss_routed_ce": float(losses["loss_routed_ce"].item()),
+                "loss_expert_ce": float(losses["loss_expert_ce"].item()),
                 "loss_div": float(losses["loss_div"].item()),
+                "loss_res_div": float(losses["loss_res_div"].item()),
                 "loss_sp": float(losses["loss_sp"].item()),
                 "loss_bal": float(losses["loss_bal"].item()),
                 "accuracy": float(losses["accuracy"].item()),
+                "expert_acc_mean": float(losses["expert_acc_mean"].item()),
+                "expert_acc_min": float(losses["expert_acc_min"].item()),
+                "expert_acc_max": float(losses["expert_acc_max"].item()),
+                "residual_corr_offdiag_mean_abs": float(
+                    losses["residual_corr_offdiag_mean_abs"].item()
+                ),
+                "router_entropy_mean": float(losses["router_entropy_mean"].item()),
+                "router_load_per_expert": [
+                    float(v) for v in losses["router_load_per_expert"].detach().cpu().tolist()
+                ],
                 "batch_size": int(y.numel()),
                 "ce_only": bool(args.ce_only),
+                "lambda_expert_ce": args.lambda_expert_ce,
                 "lambda_div": args.lambda_div,
+                "lambda_res_div": args.lambda_res_div,
                 "lambda_sp": args.lambda_sp,
                 "lambda_bal": args.lambda_bal,
             }
@@ -292,8 +353,10 @@ def main():
 
             if step % args.log_every == 0:
                 print(
-                    f"[epoch {epoch} step {step}] objective={record['objective_loss']:.4f} "
-                    f"cls={record['loss_cls']:.4f} div={record['loss_div']:.4f} "
+                    f"[epoch {epoch} step {step}] loss_total={record['loss_total']:.4f} "
+                    f"routed_ce={record['loss_routed_ce']:.4f} "
+                    f"expert_ce={record['loss_expert_ce']:.4f} "
+                    f"div={record['loss_div']:.4f} res_div={record['loss_res_div']:.4f} "
                     f"sp={record['loss_sp']:.4f} bal={record['loss_bal']:.4f} "
                     f"acc={record['accuracy']:.4f} lr={record['lr']:.2e}"
                 )

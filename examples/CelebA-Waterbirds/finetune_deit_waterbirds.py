@@ -20,7 +20,14 @@ from torch.utils.data import DataLoader, Subset
 from torchvision import transforms
 
 from intermediate_gen.datasets import MyWaterBirdsDataset
-from intermediate_gen import MoEProbeModel, loss_balance, loss_div, loss_sparse
+from intermediate_gen import (
+    MoEProbeModel,
+    loss_balance,
+    loss_div,
+    loss_expert_ce,
+    loss_residual_logit_diversity,
+    loss_sparse,
+)
 
 
 IMAGENET_MEAN = (0.485, 0.456, 0.406)
@@ -94,17 +101,39 @@ def eval_worst_group(model, loader, device, n_groups):
 
 
 def compute_stage1_loss(model, logits, pi, h_stack, y, args):
-    loss_cls = F.cross_entropy(logits, y)
+    loss_routed_ce = F.cross_entropy(logits, y)
+    B, M, D = h_stack.shape
+    expert_logits = model.head.classifier(h_stack.reshape(B * M, D)).reshape(B, M, -1)
+    l_expert_ce = loss_expert_ce(expert_logits, y)
     l_div = loss_div(h_stack)
+    l_res_div = loss_residual_logit_diversity(expert_logits, y)
     l_sp = loss_sparse(pi)
     l_bal = loss_balance(pi)
     loss = (
-        loss_cls
+        loss_routed_ce
+        + args.lambda_expert_ce * l_expert_ce
         + args.lambda_div * l_div
+        + args.lambda_res_div * l_res_div
         + args.lambda_sp * l_sp
         + args.lambda_bal * l_bal
     )
-    return loss, loss_cls, l_div, l_sp, l_bal
+    return {
+        "loss_total": loss,
+        "loss_routed_ce": loss_routed_ce,
+        "loss_cls": loss_routed_ce,
+        "loss_expert_ce": l_expert_ce,
+        "loss_div": l_div,
+        "loss_res_div": l_res_div,
+        "loss_sp": l_sp,
+        "loss_bal": l_bal,
+        "expert_logits": expert_logits,
+    }
+
+
+def stage1_objective_name(args):
+    if args.lambda_expert_ce > 0.0 or args.lambda_res_div > 0.0:
+        return "routed_ce_plus_expert_ce_res_div_moe_aux"
+    return "ce_plus_moe_aux"
 
 
 def save_combined(model, args, epoch, val_avg, val_worst, n_classes, path):
@@ -119,8 +148,10 @@ def save_combined(model, args, epoch, val_avg, val_worst, n_classes, path):
             "embed_dim": model.embed_dim,
             "num_experts": args.num_experts,
             "num_classes": n_classes,
-            "stage1_objective": "ce_plus_moe_aux",
+            "stage1_objective": stage1_objective_name(args),
+            "lambda_expert_ce": args.lambda_expert_ce,
             "lambda_div": args.lambda_div,
+            "lambda_res_div": args.lambda_res_div,
             "lambda_sp": args.lambda_sp,
             "lambda_bal": args.lambda_bal,
         },
@@ -145,6 +176,8 @@ def main():
     ap.add_argument("--lambda-div", type=float, default=0.02)
     ap.add_argument("--lambda-sp", type=float, default=0.02)
     ap.add_argument("--lambda-bal", type=float, default=0.02)
+    ap.add_argument("--lambda-expert-ce", type=float, default=0.3)
+    ap.add_argument("--lambda-res-div", type=float, default=0.005)
     args = ap.parse_args()
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -171,15 +204,18 @@ def main():
     sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=args.epochs)
     print(f"backbone={args.model} embed_dim={model.embed_dim} num_experts={args.num_experts} "
           f"epochs={args.epochs} lr={args.lr} wd={args.weight_decay} batch={args.batch_size} "
-          f"lambda_div={args.lambda_div} lambda_sp={args.lambda_sp} "
-          f"lambda_bal={args.lambda_bal}")
+          f"lambda_expert_ce={args.lambda_expert_ce} lambda_div={args.lambda_div} "
+          f"lambda_res_div={args.lambda_res_div} lambda_sp={args.lambda_sp} "
+          f"lambda_bal={args.lambda_bal} objective={stage1_objective_name(args)}")
 
     best_val_worst = -1.0
     for epoch in range(args.epochs):
         model.train()
         running_loss = 0.0
-        running_cls = 0.0
+        running_routed_ce = 0.0
+        running_expert_ce = 0.0
         running_div = 0.0
+        running_res_div = 0.0
         running_sp = 0.0
         running_bal = 0.0
         running_acc = 0.0
@@ -188,22 +224,25 @@ def main():
             x = x.to(device)
             y = y.to(device)
             logits, pi, h_stack = model(x)
-            loss, loss_cls, l_div, l_sp, l_bal = compute_stage1_loss(
-                model, logits, pi, h_stack, y, args
-            )
+            losses = compute_stage1_loss(model, logits, pi, h_stack, y, args)
+            loss = losses["loss_total"]
             opt.zero_grad()
             loss.backward()
             opt.step()
             running_loss += loss.item()
-            running_cls += loss_cls.item()
-            running_div += l_div.item()
-            running_sp += l_sp.item()
-            running_bal += l_bal.item()
+            running_routed_ce += losses["loss_routed_ce"].item()
+            running_expert_ce += losses["loss_expert_ce"].item()
+            running_div += losses["loss_div"].item()
+            running_res_div += losses["loss_res_div"].item()
+            running_sp += losses["loss_sp"].item()
+            running_bal += losses["loss_bal"].item()
             running_acc += (logits.argmax(1) == y).float().mean().item()
             n += 1
             if step % 20 == 0:
-                print(f"[epoch {epoch} step {step}] loss={running_loss/n:.4f} "
-                      f"loss_cls={running_cls/n:.4f} loss_div={running_div/n:.4f} "
+                print(f"[epoch {epoch} step {step}] loss_total={running_loss/n:.4f} "
+                      f"loss_routed_ce={running_routed_ce/n:.4f} "
+                      f"loss_expert_ce={running_expert_ce/n:.4f} "
+                      f"loss_div={running_div/n:.4f} loss_res_div={running_res_div/n:.4f} "
                       f"loss_sp={running_sp/n:.4f} loss_bal={running_bal/n:.4f} "
                       f"acc={running_acc/n:.4f} lr={opt.param_groups[0]['lr']:.2e}")
         sched.step()
